@@ -1,0 +1,31 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# Explicit paths specified without -i nor -o; assuming --only paths...
+#
+# Committer: unknown <challard@OPT10W7-1001.cerep-group.local>
+#
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   ArduiPi.pdf
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	ArduiPi.b#1
+#	ArduiPi.b#2
+#	ArduiPi.b#3
+#	ArduiPi.b#4
+#	ArduiPi.b#5
+#	ArduiPi.b#6
+#	ArduiPi.brd
+#	ArduiPi.pro
+#	ArduiPi.s#1
+#	ArduiPi.s#2
+#	ArduiPi.s#3
+#	ArduiPi.s#4
+#	ArduiPi.s#5
+#	ArduiPi.sch
+
