@@ -44,7 +44,8 @@ I am currently working on, the steps are :
 - designing the schematic and the PCB with Eagle CAD => currently working on
 - create lot of sample code (i2c, spi, serial, on Arduino side and on Raspberry side) => i2c done on both side
 - create basic WEB UI on raspberry using lighttpd => to do
-- wished this project on Seeedstudio R-Duino-Pi contest page http://www.seeedstudio.com/blog/2012/10/08/meet-arduipi-a-rpi-bridge-plate-for-arduino-fans/
+- wished this project on Seeedstudio R-Duino-Pi contest page http://www.seeedstudio.com/wish/r-duino-pi-contest-arduipi-shield-for-raspberry-pi-that-brings-arduino-low-level-extented-io-p1668
+- really thanks to Lit from Seeedstudio to broadcast this project on Seeedstudio's blog http://www.seeedstudio.com/blog/2012/10/08/meet-arduipi-a-rpi-bridge-plate-for-arduino-fans/
 
 
 So that all for now, let me know if you have more ideas and if you want more specific things or even if you want to help.
