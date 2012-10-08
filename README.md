@@ -9,17 +9,17 @@ This project is currently under developement and you can participate on design o
 Why another shield for Raspberry or another Arduino board ? 
 -----------------------------------------------------------
 Well, quite simple, Arduino is pretty cool but as soon you want to connect it to network, shield are quite expensive and web server will take lot of space into your Arduino and taking some functions off (such as SPI).
-That why Raspberry come, it cost less than a Arduino official shield and can do lot high level thing such as web server, database, home hautomation, ... But the drawback is that is I/O ports are quite complex to use and not so efficient than a arduino.
+That why Raspberry come, it cost less than a Arduino official shield and can do a lot of high level thing such as web server, database, home automation, ... But the drawback is that is I/O ports are quite complex to use and not so efficient than a arduino.
 That said, this is why I think Raspberry and Arduino could get married :-), let then talk together and assign task to the most competitive one.
 
 
 What will be the main capabilities of this shield board ?
 ---------------------------------------------------------
 - Use of traditional components so anyone with basic soldering experience can setup the board
-- Designed to be opened and fulfill major uses, letting ypu to choose the fonctions you need and remove the other ones.
+- Designed to be opened and fulfill major uses, letting you to choose the fonctions you need and remove the other ones.
 - Lot of option that can be setup by solder pad or by little switch
 - Source code and hardware will be open and available on github this means that you will be able to change anything to your needs.
-- You will be able to host lighttpd web server on Raspberry Pi with API to control arduino I/O
+- You will be able to host lighttpd web server (or other) on Raspberry Pi with API to control arduino I/O 
 
 
 Wow, I get excited ? Could you talk about the functionnalities ?
@@ -35,7 +35,7 @@ Wow, I get excited ? Could you talk about the functionnalities ?
 - Soldering pad SPI between Arduino and Raspberry (Arduino will work as a SPI slave from Raspberry)
 - Option to connect the Arduino to Raspberry Pi Serial to do async communication if needed
 - Possibility to place needed component (Opto coupler and two resistors) to use the French dedicated telinformation to send Pi electriciy information issued the the main power meter (using serial RX)
-- Grove connector on board for I2C and Serial connection
+- Grove connector on board for I2C and Serial connection from Pi and Arduino
  
 Fine, when will all of this will be available ?
 -----------------------------------------------
@@ -44,6 +44,7 @@ I am currently working on, the steps are :
 - designing the schematic and the PCB with Eagle CAD => currently working on
 - create lot of sample code (i2c, spi, serial, on Arduino side and on Raspberry side) => i2c done on both side
 - create basic WEB UI on raspberry using lighttpd => to do
+- wished this project on Seeedstudio R-Duino-Pi contest page http://www.seeedstudio.com/blog/2012/10/08/meet-arduipi-a-rpi-bridge-plate-for-arduino-fans/
 
 
 So that all for now, let me know if you have more ideas and if you want more specific things or even if you want to help.
