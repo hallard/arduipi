@@ -48,6 +48,8 @@ I am currently working on, the steps are :
 - really thanks to Lit from Seeedstudio to broadcast this project on Seeedstudio's blog http://www.seeedstudio.com/blog/2012/10/08/meet-arduipi-a-rpi-bridge-plate-for-arduino-fans/
 
 
+I will add more information, documentation and protocol definition on the wiki section https://github.com/hallard/arduipi/wiki
+
 So that all for now, let me know if you have more ideas and if you want more specific things or even if you want to help.
 
 Charles
