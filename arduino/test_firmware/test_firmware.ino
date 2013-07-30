@@ -141,10 +141,12 @@ void setup()
 	long a, vcc;
 	uint8_t i;
 	
-  Serial.begin(57600);
 
 	#ifdef DEBUG_SERIAL
+		Serial.begin(57600);
 		Serial.println("Starting ArduiPi Test Program");
+	#else
+		Serial.begin(9600);
 	#endif
 
   pinMode(pinLed,OUTPUT);
@@ -636,7 +638,7 @@ int parse_cmd( boolean is_get_command )
 			#endif
 			
 			// If we received ACK from PI, all is fine
-			if (*prx == 'A' && *(prx+1) == 'C' *(prx+2) == 'K'
+			if (*(prx-1) == 'A' && *(prx+0) == 'C' && *(prx+1) == 'K' )
 			{
 				g_ser_tested = true;
 			}
