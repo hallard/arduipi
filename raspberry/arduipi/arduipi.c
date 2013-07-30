@@ -850,20 +850,11 @@ void do_spi(void)
 		opts.data[0] = ARDUIPI_CMD_PING ;
 		
 		// transfert one byte with the ping command
+		// test firmware always response 2a 
 		spi_transfer( g_fd_device, (unsigned char *) opts.data, 1);
-		log_syslog(stdout, "1st reponse from spi device %s : %d\n", opts.port, (int) opts.data[0]);
-
-		
-		// Now be sure arduino on the other side has time to setup SPDR register to the command we executed
-		// it will send back the response at the next command 
-		sleep(1);
-		
-		// transfert one byte
-		opts.data[0] = ARDUIPI_CMD_PING ;
-		r = spi_transfer( g_fd_device, (unsigned char *) opts.data, 1);
 	
 		// If error 
-		if ( r == -1 )
+		if ( r < 0 )
 		{
 			log_syslog(stdout, "Error from spi device %s : %s\n", opts.port, strerror(errno));
 			clean_exit( EXIT_FAILURE );
@@ -874,9 +865,9 @@ void do_spi(void)
 			r = (int) opts.data[0];
 			
 			// not expected response ?
-			if ( r != ARDUIPI_CMD_PING)
-				log_syslog(stdout, "Warning, expected %02X response and received %02X from spi device %s\n", ARDUIPI_CMD_PING, r, opts.port);
-			else
+			//if ( r != ARDUIPI_CMD_PING)
+			//	log_syslog(stdout, "Warning, expected %02X response and received %02X from spi device %s\n", ARDUIPI_CMD_PING, r, opts.port);
+			//else
 				log_syslog(stdout, opts.hexout?"0x%02X\n":"%d\n", r);
 		}
 		
