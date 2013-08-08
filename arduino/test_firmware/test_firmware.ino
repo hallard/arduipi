@@ -150,6 +150,14 @@ void setup()
 	#endif
 
   pinMode(pinLed,OUTPUT);
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(4,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(8,OUTPUT);
+  pinMode(9,OUTPUT);
 
   // clear the ADC prescaler defined by arduino env
 	// enable ADC and set prescaler to 64 (250Khz)
@@ -447,7 +455,7 @@ void loop()
 	{
 	
 		// Set i2c to 400Khz
-		TWBR = 10 ;
+		//TWBR = 10 ;
 		
 		_millis = millis();
 
@@ -511,7 +519,7 @@ void loop()
 		SeeedGrayOled.putString(" ms");
 
 		// Set i2c to 100Khz
-		TWBR = 72 ;
+		//TWBR = 72 ;
 
 		// restart new loop 
     ldelay = LOOP_DELAY ;
