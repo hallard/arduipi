@@ -219,7 +219,7 @@ void setup()
 	// TWBR = 10 ;
 
 	// Set i2c to 100Khz to improve compatibility
-	TWBR = 10 ;
+	TWBR = 72 ;
 
 	//clear the screen and set start position to top left corner
   SeeedGrayOled.clearDisplay();           
@@ -460,7 +460,6 @@ void loop()
   if (ldelay == 0) 
 	{
 	
-<<<<<<< HEAD
 		// Display only when received 1st i2c command from PI
 		// this avoid I2C bus corruption
 		if ( g_i2c_tested )
@@ -469,12 +468,11 @@ void loop()
 			// TWBR = 10 ;
 			
 			_millis = millis();
-=======
-		// Set i2c to 400Khz
+
+			// Set i2c to 400Khz
 		//TWBR = 10 ;
 		
 		_millis = millis();
->>>>>>> 844ab5995264b348bbf195b0210b292249921bf4
 
 			SeeedGrayOled.setTextXY(1,0);           
 			SeeedGrayOled.putString("1Wire  : ");
@@ -497,7 +495,6 @@ void loop()
 			SeeedGrayOled.putString(g_ser_tested ? "OK":"--");
 
 
-<<<<<<< HEAD
 	/*		
 			SeeedGrayOled.setTextXY(2,0);           
 			SeeedGrayOled.putString("Vcc ");
@@ -539,7 +536,6 @@ void loop()
 			// Set i2c to 100Khz
 			// TWBR = 72 ;
 		}
-=======
 /*		
 		SeeedGrayOled.setTextXY(2,0);           
 		SeeedGrayOled.putString("Vcc ");
@@ -580,7 +576,6 @@ void loop()
 
 		// Set i2c to 100Khz
 		//TWBR = 72 ;
->>>>>>> 844ab5995264b348bbf195b0210b292249921bf4
 
 		// restart new loop 
 		ldelay = LOOP_DELAY ;
