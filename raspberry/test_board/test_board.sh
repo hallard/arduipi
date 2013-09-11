@@ -39,15 +39,15 @@ else
   echo "Error No I2C response from Arduino"
 fi
 
-echo -n "  Checking Arduino Ping."
+#echo -n "  Checking Arduino Ping."
 # send ping command to arduino, Arduino should respond 0x2a in ping response
 #if `i2cget -y 1 0x2a 0xe0 | grep "2a" 1>/dev/null 2>&1`
-if `arduipi --i2c --getbyte --hex --data 0xe0 | grep 0x2A 1>/dev/null 2>&1`
-then
-  echo "Arduino I2C Ping OK"
-else
-  echo "Error in Ping response from Arduino"
-fi
+#if `arduipi --i2c --getbyte --hex --data 0xe0 | grep 0x2A 1>/dev/null 2>&1`
+#then
+#  echo "Arduino I2C Ping OK"
+#else
+#  echo "Error in Ping response from Arduino"
+#fi
 echo
 
 
@@ -57,7 +57,7 @@ echo "-----------------------------------"
 echo -n "  Checking Arduino Ping."
 # send ping command to arduino, Arduino should respond 0x2a in ping response
 #if `i2cget -y 1 0x2a 0xe0 | grep "2a" 1>/dev/null 2>&1`
-if `arduipi --spi --ack --hex | grep 0x2A 1>/dev/null 2>&1`
+if `arduipi --maxspeed 1000 --spi --ack --hex | grep 0x2A 1>/dev/null 2>&1`
 then
   echo "Arduino SPI Ping OK"
 else
