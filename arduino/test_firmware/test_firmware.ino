@@ -97,11 +97,11 @@ char buff[17];
 DS2482 ds(0);
 
 // Test passed variable flags
-boolean g_i2c_tested = false;			// indicate that I2C test passed
-boolean g_spi_tested = false;			// indicate that SPI test passed
-boolean g_ser_tested = false;			// indicate that serial test passed
-boolean g_1w_tested  = false;			// indicate that 1-Wire test passed
-boolean g_analog_tested  = false;	// indicate that analog input test passed
+volatile boolean g_i2c_tested = false;			// indicate that I2C test passed
+volatile boolean g_spi_tested = false;			// indicate that SPI test passed
+volatile boolean g_ser_tested = false;			// indicate that serial test passed
+volatile boolean g_1w_tested  = false;			// indicate that 1-Wire test passed
+volatile boolean g_analog_tested  = false;	// indicate that analog input test passed
 
 
 
@@ -234,6 +234,10 @@ void setup()
   SeeedGrayOled.setTextXY(0,0);          
 	
   SeeedGrayOled.putString("ArduiPi Test");
+  
+  SeeedGrayOled.setTextXY(6,0);
+
+  SeeedGrayOled.putString(" Waiting I2C");
 	
 	// register ISR Interrupt for I2C
   Wire.onRequest(requesti2cEvent);
@@ -494,6 +498,9 @@ void loop()
 			SeeedGrayOled.putString("Serial : ");
 			SeeedGrayOled.putString(g_ser_tested ? "OK":"--");
 
+                        SeeedGrayOled.setTextXY(6,0);
+                        SeeedGrayOled.putString("  Got I2C  ");
+
 
 	/*		
 			SeeedGrayOled.setTextXY(2,0);           
@@ -567,12 +574,6 @@ void loop()
 		SeeedGrayOled.putString(buff);
 		SeeedGrayOled.putString(" V");
 */		
-		_millis = millis() - _millis;
-
-		SeeedGrayOled.setTextXY(8,0);
-		SeeedGrayOled.putString("took ");
-		SeeedGrayOled.putNumber(_millis);
-		SeeedGrayOled.putString(" ms");
 
 		// Set i2c to 100Khz
 		//TWBR = 72 ;
@@ -1034,8 +1035,13 @@ void receivei2cEvent(int nbyte)
 {
   static byte p;
   
+  // if 0 then result of i2c detect from Pi so it works
+  if (nbyte == 0)
+    g_i2c_tested = true;
+  
+  
   // check not overflowing, our buffer is enought ?
-  if ( nbyte < CMD_MAX_SIZE )
+  if ( nbyte < CMD_MAX_SIZE && nbyte > 0)
   {
     // Grab all the command bytes into the receive buffer
     for (p = 0; p < nbyte; p++)
