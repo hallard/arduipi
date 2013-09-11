@@ -150,6 +150,14 @@ void setup()
 	#endif
 
   pinMode(pinLed,OUTPUT);
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(4,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(8,OUTPUT);
+  pinMode(9,OUTPUT);
 
   // clear the ADC prescaler defined by arduino env
 	// enable ADC and set prescaler to 64 (250Khz)
@@ -208,6 +216,9 @@ void setup()
   SeeedGrayOled.init();  								
 	
 	// Set i2c to 400Khz to improve display speed
+	// TWBR = 10 ;
+
+	// Set i2c to 100Khz to improve compatibility
 	TWBR = 10 ;
 
 	//clear the screen and set start position to top left corner
@@ -228,6 +239,9 @@ void setup()
   Wire.onRequest(requesti2cEvent);
   Wire.onReceive(receivei2cEvent);
 
+  // Set SPI to 1MHz
+  SPI.setClockDivider(SPI_CLOCK_DIV16);
+  
 	// have to send on master in, slave out
 	pinMode(MISO, OUTPUT);    
 
@@ -446,75 +460,80 @@ void loop()
   if (ldelay == 0) 
 	{
 	
-		// Set i2c to 400Khz
-		TWBR = 10 ;
+		// Display only when received 1st i2c command from PI
+		// this avoid I2C bus corruption
+		if ( g_i2c_tested )
+		{
+			// Set i2c to 400Khz
+			// TWBR = 10 ;
+			
+			_millis = millis();
+
+			SeeedGrayOled.setTextXY(1,0);           
+			SeeedGrayOled.putString("1Wire  : ");
+			SeeedGrayOled.putString(g_1w_tested ? "OK":"--");
 		
-		_millis = millis();
-
-		SeeedGrayOled.setTextXY(1,0);           
-		SeeedGrayOled.putString("1Wire  : ");
-		SeeedGrayOled.putString(g_1w_tested ? "OK":"--");
-	
-		SeeedGrayOled.setTextXY(2,0);           
-		SeeedGrayOled.putString("Analog : ");
-		SeeedGrayOled.putString(g_analog_tested ? "OK":"--");
-	
-		SeeedGrayOled.setTextXY(3,0);           
-		SeeedGrayOled.putString("I2C    : ");
-		SeeedGrayOled.putString(g_i2c_tested ? "OK":"--");
-
-		SeeedGrayOled.setTextXY(4,0);           
-		SeeedGrayOled.putString("SPI    : ");
-		SeeedGrayOled.putString(g_spi_tested ? "OK":"--");
-
-		SeeedGrayOled.setTextXY(5,0);           
-		SeeedGrayOled.putString("Serial : ");
-		SeeedGrayOled.putString(g_ser_tested ? "OK":"--");
-
-
-/*		
-		SeeedGrayOled.setTextXY(2,0);           
-		SeeedGrayOled.putString("Vcc ");
-		dtostrf(g_vcc/1000.0,4,2,buff);
-		SeeedGrayOled.putString(buff);
-		SeeedGrayOled.putString(" V");
+			SeeedGrayOled.setTextXY(2,0);           
+			SeeedGrayOled.putString("Analog : ");
+			SeeedGrayOled.putString(g_analog_tested ? "OK":"--");
 		
-		SeeedGrayOled.setTextXY(3,0);
-		SeeedGrayOled.putString("A0  ");
-		dtostrf(_a0/1000.0,4,2,buff);
-		SeeedGrayOled.putString(buff);
-		SeeedGrayOled.putString(" V");
+			SeeedGrayOled.setTextXY(3,0);           
+			SeeedGrayOled.putString("I2C    : ");
+			SeeedGrayOled.putString(g_i2c_tested ? "OK":"--");
 
-		SeeedGrayOled.setTextXY(4,0);
-		SeeedGrayOled.putString("A1  ");
-		dtostrf(_a1/1000.0,4,2,buff);
-		SeeedGrayOled.putString(buff);
-		SeeedGrayOled.putString(" V");
+			SeeedGrayOled.setTextXY(4,0);           
+			SeeedGrayOled.putString("SPI    : ");
+			SeeedGrayOled.putString(g_spi_tested ? "OK":"--");
 
-		SeeedGrayOled.setTextXY(5,0);
-		SeeedGrayOled.putString("3V3 ");
-		dtostrf(_a2/1000.0,4,2,buff);
-		SeeedGrayOled.putString(buff);
-		SeeedGrayOled.putString(" V");
+			SeeedGrayOled.setTextXY(5,0);           
+			SeeedGrayOled.putString("Serial : ");
+			SeeedGrayOled.putString(g_ser_tested ? "OK":"--");
 
-		SeeedGrayOled.setTextXY(6,0);
-		SeeedGrayOled.putString("Vin ");
-		dtostrf(_a3/1000.0,4,2,buff);
-		SeeedGrayOled.putString(buff);
-		SeeedGrayOled.putString(" V");
-*/		
-		_millis = millis() - _millis;
 
-		SeeedGrayOled.setTextXY(8,0);
-		SeeedGrayOled.putString("took ");
-		SeeedGrayOled.putNumber(_millis);
-		SeeedGrayOled.putString(" ms");
+	/*		
+			SeeedGrayOled.setTextXY(2,0);           
+			SeeedGrayOled.putString("Vcc ");
+			dtostrf(g_vcc/1000.0,4,2,buff);
+			SeeedGrayOled.putString(buff);
+			SeeedGrayOled.putString(" V");
+			
+			SeeedGrayOled.setTextXY(3,0);
+			SeeedGrayOled.putString("A0  ");
+			dtostrf(_a0/1000.0,4,2,buff);
+			SeeedGrayOled.putString(buff);
+			SeeedGrayOled.putString(" V");
 
-		// Set i2c to 100Khz
-		TWBR = 72 ;
+			SeeedGrayOled.setTextXY(4,0);
+			SeeedGrayOled.putString("A1  ");
+			dtostrf(_a1/1000.0,4,2,buff);
+			SeeedGrayOled.putString(buff);
+			SeeedGrayOled.putString(" V");
+
+			SeeedGrayOled.setTextXY(5,0);
+			SeeedGrayOled.putString("3V3 ");
+			dtostrf(_a2/1000.0,4,2,buff);
+			SeeedGrayOled.putString(buff);
+			SeeedGrayOled.putString(" V");
+
+			SeeedGrayOled.setTextXY(6,0);
+			SeeedGrayOled.putString("Vin ");
+			dtostrf(_a3/1000.0,4,2,buff);
+			SeeedGrayOled.putString(buff);
+			SeeedGrayOled.putString(" V");
+	*/		
+			_millis = millis() - _millis;
+
+			SeeedGrayOled.setTextXY(8,0);
+			SeeedGrayOled.putString("took ");
+			SeeedGrayOled.putNumber(_millis);
+			SeeedGrayOled.putString(" ms");
+
+			// Set i2c to 100Khz
+			// TWBR = 72 ;
+		}
 
 		// restart new loop 
-    ldelay = LOOP_DELAY ;
+		ldelay = LOOP_DELAY ;
 		
 		// setup a new blink
 		nblink = 2;
