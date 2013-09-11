@@ -257,7 +257,6 @@ int spi_init(void)
 	int ret;
 	uint8_t mode;			// spi mode
 	uint8_t bits;			// spi bits per word
-	uint32_t speed ;	// spi frequency max
 
   // Open spi bus
   if ( (fd = open(opts.port, O_RDWR)) < 0 ) 
@@ -289,9 +288,9 @@ int spi_init(void)
 		fatal( "spi_init %s : error setting write max speed %d Hz: %s",  opts.port, opts.spi_speed, strerror(errno));
 
 	// read the value we set and check it is the same
-	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed);
-	if (ret == -1 || speed != opts.spi_speed )
-		fatal( "spi_init %s : error setting read max speed %d KHz, found %d Khz: %s",  opts.port, opts.spi_speed, speed, strerror(errno));
+	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &opts.spi_speed);
+	if (ret == -1 )
+		fatal( "spi_init %s : error setting read max speed %d KHz, %s",  opts.port, opts.spi_speed, strerror(errno));
 
  	return fd ;
 }
@@ -558,7 +557,11 @@ void parse_args(int argc, char *argv[])
 						fprintf(stderr, "--maxspeed %d Khz ignored.\n", opts.spi_speed);
 						fprintf(stderr, "--maxspeed must be between 1 and 10000 (KHz)\n");
 						opts.spi_speed = SPI_SPEED;
-						fprintf(stderr, "--setting max speed to default %d Khz\n", opts.spi_speed);
+						fprintf(stderr, "--setting max speed to default %d Khz\n", opts.spi_speed/1000);
+				}
+				else
+				{
+					opts.spi_speed *= 1000;
 				}
 			break;
 
