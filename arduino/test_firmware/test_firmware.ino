@@ -460,6 +460,7 @@ void loop()
   if (ldelay == 0) 
 	{
 	
+<<<<<<< HEAD
 		// Display only when received 1st i2c command from PI
 		// this avoid I2C bus corruption
 		if ( g_i2c_tested )
@@ -468,6 +469,12 @@ void loop()
 			// TWBR = 10 ;
 			
 			_millis = millis();
+=======
+		// Set i2c to 400Khz
+		//TWBR = 10 ;
+		
+		_millis = millis();
+>>>>>>> 844ab5995264b348bbf195b0210b292249921bf4
 
 			SeeedGrayOled.setTextXY(1,0);           
 			SeeedGrayOled.putString("1Wire  : ");
@@ -490,6 +497,7 @@ void loop()
 			SeeedGrayOled.putString(g_ser_tested ? "OK":"--");
 
 
+<<<<<<< HEAD
 	/*		
 			SeeedGrayOled.setTextXY(2,0);           
 			SeeedGrayOled.putString("Vcc ");
@@ -531,6 +539,48 @@ void loop()
 			// Set i2c to 100Khz
 			// TWBR = 72 ;
 		}
+=======
+/*		
+		SeeedGrayOled.setTextXY(2,0);           
+		SeeedGrayOled.putString("Vcc ");
+		dtostrf(g_vcc/1000.0,4,2,buff);
+		SeeedGrayOled.putString(buff);
+		SeeedGrayOled.putString(" V");
+		
+		SeeedGrayOled.setTextXY(3,0);
+		SeeedGrayOled.putString("A0  ");
+		dtostrf(_a0/1000.0,4,2,buff);
+		SeeedGrayOled.putString(buff);
+		SeeedGrayOled.putString(" V");
+
+		SeeedGrayOled.setTextXY(4,0);
+		SeeedGrayOled.putString("A1  ");
+		dtostrf(_a1/1000.0,4,2,buff);
+		SeeedGrayOled.putString(buff);
+		SeeedGrayOled.putString(" V");
+
+		SeeedGrayOled.setTextXY(5,0);
+		SeeedGrayOled.putString("3V3 ");
+		dtostrf(_a2/1000.0,4,2,buff);
+		SeeedGrayOled.putString(buff);
+		SeeedGrayOled.putString(" V");
+
+		SeeedGrayOled.setTextXY(6,0);
+		SeeedGrayOled.putString("Vin ");
+		dtostrf(_a3/1000.0,4,2,buff);
+		SeeedGrayOled.putString(buff);
+		SeeedGrayOled.putString(" V");
+*/		
+		_millis = millis() - _millis;
+
+		SeeedGrayOled.setTextXY(8,0);
+		SeeedGrayOled.putString("took ");
+		SeeedGrayOled.putNumber(_millis);
+		SeeedGrayOled.putString(" ms");
+
+		// Set i2c to 100Khz
+		//TWBR = 72 ;
+>>>>>>> 844ab5995264b348bbf195b0210b292249921bf4
 
 		// restart new loop 
 		ldelay = LOOP_DELAY ;
