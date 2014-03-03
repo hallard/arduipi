@@ -1,0 +1,42 @@
+#!/usr/bin/python
+
+import RPi.GPIO as GPIO
+import sys, os, re, time, fcntl
+
+fd = sys.stdin.fileno()
+fl = fcntl.fcntl(fd, fcntl.F_GETFL)
+fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+
+# Avoid warnings during avrdude display
+GPIO.setwarnings(False)
+
+GPIO.setmode(GPIO.BOARD)
+dtr = re.compile('.+TIOCM_DTR.+')
+start = time.time()
+
+# pin number is Raspberry PI P1 connector
+# 7 is GPIO 4
+# 11 is GPIO 17
+# 12 is GPIO 18 ...
+def reset():
+  pin = 12
+  GPIO.setup(pin, GPIO.OUT)
+  GPIO.output(pin, GPIO.HIGH)
+  time.sleep(0.12)
+  GPIO.output(pin, GPIO.LOW)
+
+def process():
+  while True:
+    try: 
+      duration = time.time() - start
+      input = sys.stdin.readline().strip()
+      if dtr.match(input):
+        reset()
+        return
+      elif duration > 5000:
+        return
+    except:
+      continue
+
+process()
+GPIO.cleanup()
