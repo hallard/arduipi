@@ -1,0 +1,27 @@
+#!/bin/sh
+# You need to have installed Wiring Pi library to be able 
+# to use this script
+# see http://wiringpi.com/download-and-install/
+
+# define GPIO number where RESET line (DTR) is connected to
+# here GPIO 18
+io=18
+
+# Set IO pin to output
+gpio -g mode $io out
+
+# Set IO pin to LOW (bring reset to GND)
+echo -n "Resetting with GPIO"$io"..."
+gpio -g write $io 0
+
+# wait little time
+sleep 1
+
+# Set IO pin to HIGH (release reset to VDD)
+gpio -g write $io 1
+echo "done"
+
+# Optionnal, you can just after reset launch a 
+# serial connection to Arduino 
+# uncomment the following line to do it
+#picocom -b 115200 --imap lfcrlf /dev/ttyS0
