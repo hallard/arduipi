@@ -3,10 +3,6 @@ ArduiPi
 
 ArduiPi is a shield for Raspberry Pi that brings Arduino low level extented I/O to Raspberry Pi.
 
-This project is currently described on my blog
-
-
-Check out news and other projects on my [blog][4] 
 
 Detailed Description
 ====================
@@ -21,6 +17,8 @@ Everything is documented on this decicated [page][3]
 
 **Board**  
 ![board] (https://raw.github.com/hallard/arduipi/master/ArduiPi-V1.1-brd.png)
+
+Check out news and other projects on my [blog][4] 
 
 [3]: http://hallard.me/arduipi-the-shield-that-brings-arduino-to-raspberry-pi/
 [4]: http://hallard.me
