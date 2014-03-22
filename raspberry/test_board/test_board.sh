@@ -1,7 +1,39 @@
 #!/bin/bash
 # quick and dirty code, I know, will arrange this later
+# 03/17/2014 CHH Modified to test new onboard switch connected to GPIO 17
 
+echo "------------------------------------"
+echo "ArduiPi test program, please verify "
+echo "that test board plugged on ArduiPi  "
+echo "                                    "
+echo "Press POWER-PI switch to begin Test "
+echo "------------------------------------"
+# Set GPIO 17 as input (Switch)
+gpio -g mode 17 in
+# Set GPIO 18 as output (Arduino Reset)
+gpio -g mode 18 out
+gpio -g write 18 1
 
+# loop until button pressed
+button=1
+while [  $button -ne 0 ]
+do
+	button=`gpio -g read 17`
+	sleep 0.5
+	echo -n "."
+done
+
+echo " "
+echo "Reseting Arduino and waiting ready  "
+echo "------------------------------------"
+# Bring reset LOW for 100ms
+gpio -g write 18 0
+sleep 0.1
+# Put reset back in idle state
+gpio -g write 18 1
+sleep 3
+
+echo " "
 echo "Testing ArduiPi Serial communication"
 echo "------------------------------------"
 # configure serial port to Arduino compatible mode
@@ -89,28 +121,28 @@ function setio
 }
 
 echo "--- All Led off"
-for io in 7 4 17 18 27 22 23 24 25 28 29 30 31
+for io in 7 4 27 22 23 24 25 28 29 30 31
 do
    setandclear $io
 done
 sleep 2
 
 echo "--- All Led On"
-for io in 7 4 17 18 27 22 23 24 25 28 29 30 31
+for io in 7 4 27 22 23 24 25 28 29 30 31
 do
    seton $io
 done
 sleep 2
 
 echo "--- All Led off"
-for io in 7 4 17 18 27 22 23 24 25 28 29 30 31
+for io in 7 4 27 22 23 24 25 28 29 30 31
 do
    setandclear $io
 done
 
 echo "--- Cycling"
 #21 for Pi Rev 1
-for io in 7 4 17 18 27 22 23 24 25 28 29 30 31
+for io in 7 4 27 22 23 24 25 28 29 30 31
 do
    setio $io
 done
